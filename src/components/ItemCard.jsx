@@ -1,26 +1,36 @@
 import React from "react";
 import { Plus, Minus, Trash } from "lucide-react";
 import { useDispatch } from "react-redux";
-import { removeFromCart } from "../redux/slices/CartSlice";
+import {
+  removeFromCart,
+  incrementQty,
+  decrementQty,
+} from "../redux/slices/CartSlice";
 const ItemCard = ({ id, name, price, img, qty }) => {
   const dispatch = useDispatch();
 
   return (
     <>
-      <div  className="flex flex-col gap-2 shadow-md rounded-lg p-2 mb-3">
+      <div className="flex flex-col gap-2 shadow-md rounded-lg p-2 mb-3">
         <img src={img} className="w-[50px] h-[50px] " />
         <div>
           <h2 className="font-bold text-gray-800"> {name} </h2>
           <div className="flex justify-between">
             <span>₹ {price} </span>
             <div className="flex gap-2 absolute right-2">
-              <Plus className="border-2 border-gray-600 text-gray-600 hover:text-white hover:bg-green-500 hover:border-none cursor-pointer rounded-md p-1 text-xl transition-all ease-linear" />
-              <span> {qty} </span>
-              <Minus className="border-2 border-gray-600 text-gray-600 hover:text-white hover:bg-green-500 hover:border-none cursor-pointer rounded-md p-1 text-xl transition-all ease-linear" />
-              <Trash
+              <Minus
                 onClick={() =>
-                  dispatch(removeFromCart({id}))
+                  qty > 1 ? dispatch(decrementQty({ id })) : (qty = 0)
                 }
+                className="border-2 border-gray-600 text-gray-600 hover:text-white hover:bg-green-500 hover:border-none cursor-pointer rounded-md p-1 text-xl transition-all ease-linear"
+              />
+              <span> {qty} </span>
+              <Plus
+                onClick={() => dispatch(incrementQty({ id }))}
+                className="border-2 border-gray-600 text-gray-600 hover:text-white hover:bg-green-500 hover:border-none cursor-pointer rounded-md p-1 text-xl transition-all ease-linear"
+              />
+              <Trash
+                onClick={() => dispatch(removeFromCart({ id }))}
                 className="text-red-500 hover:text-red-600 cursor-pointer"
               />
             </div>
