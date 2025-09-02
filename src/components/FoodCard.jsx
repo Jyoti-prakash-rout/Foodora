@@ -3,7 +3,7 @@ import { Star } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/slices/CartSlice";
 
-const FoodCard = ({ id, name, price, img, rating, desc }) => {
+const FoodCard = ({ id, name, price, img, rating, desc, handleToast }) => {
   const dispatch = useDispatch();
 
   return (
@@ -24,7 +24,8 @@ const FoodCard = ({ id, name, price, img, rating, desc }) => {
         </span>
         <button
           onClick={() => {
-            dispatch(addToCart({id, name, price, qty: 1, img}));
+            dispatch(addToCart({ id, name, price, qty: 1, img }));
+            handleToast(name);
           }}
           className="px-2 py-1 bg-green-500 text-white rounded-full hover:bg-green-600 cursor-pointer ">
           Add to cart

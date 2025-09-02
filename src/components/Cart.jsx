@@ -8,7 +8,11 @@ const Cart = () => {
   const [activeCard, setActiveCard] = useState(true);
 
   const cartItems = useSelector((state) => state.cart.cart);
-  console.log(cartItems);
+  const totalQty = cartItems.reduce((totalQty, item) => totalQty + item.qty, 0);
+  const totalPrice = cartItems.reduce(
+    (totalPrice, item) => totalPrice + item.qty * item,
+    0
+  );
 
   {
     if (cartItems.length < 0) {
@@ -51,8 +55,10 @@ const Cart = () => {
         )}
 
         <div className="absolute bottom-0 mb-5">
-          <h3 className="font-semibold text-gray-800">Items:</h3>
-          <h3 className="font-semibold text-gray-800">Total Amount:</h3>
+          <h3 className="font-semibold text-gray-800">Items: {totalQty}</h3>
+          <h3 className="font-semibold text-gray-800">
+            Total Amount: {totalPrice}{" "}
+          </h3>
           <hr className="" />
           <button className="px-2 py-1 bg-green-500 text-white rounded-full hover:bg-green-600 cursor-pointer w-full mt-2">
             Checkout
@@ -61,7 +67,9 @@ const Cart = () => {
       </div>
       <ShoppingCart
         onClick={() => setActiveCard(!activeCard)}
-        className="fixed bottom-5 right-5 cursor-pointer"
+        className={`fixed bottom-5 right-5 cursor-pointer ${
+          totalQty > 0 && "animate-bounce delay-500 transition-all"
+        } `}
       />
     </>
   );
