@@ -8,9 +8,11 @@ const Cart = () => {
   const [activeCard, setActiveCard] = useState(true);
 
   const cartItems = useSelector((state) => state.cart.cart);
+
   const totalQty = cartItems.reduce((totalQty, item) => totalQty + item.qty, 0);
+
   const totalPrice = cartItems.reduce(
-    (totalPrice, item) => totalPrice + item.qty * item,
+    (totalPrice, item) => totalPrice + item.qty * item.price,
     0
   );
 
