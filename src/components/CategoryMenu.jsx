@@ -1,6 +1,9 @@
 import React from "react";
 
 const CategoryMenu = () => {
+
+
+  
   return (
     <>
       <div className="mx-6">

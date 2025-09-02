@@ -24,7 +24,7 @@ const ItemCard = ({ id, name, price, img, qty }) => {
                 }
                 className="border-2 border-gray-600 text-gray-600 hover:text-white hover:bg-green-500 hover:border-none cursor-pointer rounded-md p-1 text-xl transition-all ease-linear"
               />
-              <span> {qty} </span> 
+              <span> {qty} </span>
               <Plus
                 onClick={() =>
                   qty >= 1 ? dispatch(incrementQty({ id })) : (qty = 0)
@@ -32,7 +32,13 @@ const ItemCard = ({ id, name, price, img, qty }) => {
                 className="border-2 border-gray-600 text-gray-600 hover:text-white hover:bg-green-500 hover:border-none cursor-pointer rounded-md p-1 text-xl transition-all ease-linear"
               />
               <Trash
-                onClick={() => dispatch(removeFromCart({ id }))}
+                onClick={() => {
+                  dispatch(removeFromCart({ id }));
+
+                  toast(`${name} Removed!`, {
+                    icon: "👋🏻",
+                  });
+                }}
                 className="text-red-500 hover:text-red-600 cursor-pointer"
               />
             </div>

@@ -7,7 +7,7 @@ import toast, { Toaster } from "react-hot-toast";
 const FoodItems = () => {
   const handleToast = (name) => toast.success(`Added ${name}`);
 
-  return ( 
+  return (  
     <>
       <Toaster position="top-center" reverseOrder={false} />
       <div className="flex flex-wrap gap-10 lg:justify-start md:justify-center justify-center mx-6 my-10">
