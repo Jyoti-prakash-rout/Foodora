@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { X, ShoppingCart } from "lucide-react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import ItemCard from "./ItemCard";
 
@@ -25,6 +26,8 @@ const Cart = () => {
       );
     }
   }
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -62,7 +65,9 @@ const Cart = () => {
             Total Amount: {totalPrice}{" "}
           </h3>
           <hr className="" />
-          <button className="px-2 py-1 bg-green-500 text-white rounded-full hover:bg-green-600 cursor-pointer w-full mt-2">
+          <button
+            className="px-2 py-1 bg-green-500 text-white rounded-full hover:bg-green-600 cursor-pointer w-full mt-2"
+            onClick={() => navigate("./success")}>
             Checkout
           </button>
         </div>

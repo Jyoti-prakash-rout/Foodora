@@ -24,7 +24,7 @@ const FoodItems = () => {
           } else {
             return (
               category === food.category &&
-              food.name.includes(search.toLowerCase)
+              food.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
             );
           }
         }).map((food) => (
