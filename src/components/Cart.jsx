@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import ItemCard from "./ItemCard";
 
 const Cart = () => {
-  const [activeCard, setActiveCard] = useState(true);
+  const [activeCard, setActiveCard] = useState(false);
 
   const cartItems = useSelector((state) => state.cart.cart);
 
