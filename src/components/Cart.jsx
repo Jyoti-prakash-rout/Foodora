@@ -20,9 +20,9 @@ const Cart = () => {
     [cartItems]
   );
 
-  const totalPrice = cartItems.reduce(
-    (totalPrice, item) => totalPrice + item.qty * item.price,
-    0
+  const totalPrice = useMemo(
+    () => cartItems.reduce((sum, item) => sum + item.qty * item.price, 0),
+    [cartItems]
   );
 
   {
