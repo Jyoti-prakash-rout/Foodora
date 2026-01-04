@@ -5,7 +5,6 @@ import FoodCard from "./FoodCard";
 import FoodData from "../data/FoodData";
 
 import toast, { Toaster } from "react-hot-toast";
-import { Search } from "lucide-react";
 
 const FoodItems = () => {
   const handleToast = (name) => toast.success(`Added ${name}`);

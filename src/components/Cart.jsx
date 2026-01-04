@@ -1,16 +1,24 @@
 import React, { useState } from "react";
 import { X, ShoppingCart } from "lucide-react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
+import { useAuth } from "../auth/AuthContext";
+
+import { useMemo } from "react";
 
 import ItemCard from "./ItemCard";
 
 const Cart = () => {
+  const { user } = useAuth();
+
   const [activeCard, setActiveCard] = useState(false);
 
   const cartItems = useSelector((state) => state.cart.cart);
 
-  const totalQty = cartItems.reduce((totalQty, item) => totalQty + item.qty, 0);
+  const totalQty = useMemo(
+    () => cartItems.reduce((sum, item) => sum + item.qty, 0),
+    [cartItems]
+  );
 
   const totalPrice = cartItems.reduce(
     (totalPrice, item) => totalPrice + item.qty * item.price,
@@ -26,6 +34,8 @@ const Cart = () => {
       );
     }
   }
+
+  // return cartItems.length > 0 ? element : <Navigate to="/" />;
 
   const navigate = useNavigate();
 
@@ -66,8 +76,20 @@ const Cart = () => {
           </h3>
           <hr className="" />
           <button
-            className="px-2 py-1 bg-green-500 text-white rounded-full hover:bg-green-600 cursor-pointer w-full mt-2"
-            onClick={() => navigate("./success")}>
+            disabled={cartItems.length === 0}
+            className={`px-2 py-1 rounded-full w-full mt-2 transition
+    ${
+      cartItems.length === 0
+        ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+        : "bg-green-500 text-white hover:bg-green-600 cursor-pointer"
+    }`}
+            onClick={() => {
+              if (!user) {
+                navigate("/login");
+              } else {
+                navigate("/success");
+              }
+            }}>
             Checkout
           </button>
         </div>
